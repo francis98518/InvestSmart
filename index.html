@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lenovo | Login</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff;
+    }
+
+    .header {
+      background: #000; /* preto */
+      color: white;
+      padding: 40px 20px 20px;
+      font-size: 40px;
+      font-weight: bold;
+    }
+
+    .container {
+      padding: 20px;
+      color: #000; /* texto preto */
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    p {
+      margin: 10px 0 20px;
+      font-size: 15px;
+    }
+
+    .input-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+    }
+
+    .input-group svg {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      fill: #0000ff; /* azul */
+    }
+
+    .input-group input {
+      border: none;
+      outline: none;
+      width: 100%;
+      font-size: 14px;
+    }
+
+    .remember {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .remember input {
+      margin-right: 5px;
+    }
+
+    .btn-login {
+      background-color: #0000ff; /* azul */
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 30px;
+      width: 100%;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .btn-register {
+      margin-top: 10px;
+      background-color: white;
+      color: #0000ff; /* azul */
+      border: 2px solid #0000ff;
+      padding: 10px;
+      border-radius: 30px;
+      width: 100%;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      display: none;
+    }
+
+    #toast.show {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    InvestSmart
+  </div>
+
+  <div class="container">
+    <h2>LOGIN</h2>
+    <p>Bem-vindo de volta, faça login na sua conta e comece a jornada para ganhar dinheiro</p>
+
+    <div class="input-group">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M17 1H7C5.9 1 5 1.9 5 3v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 18H7V5h10v14z"/>
+      </svg>
+      <input type="text" id="telefone" placeholder="Por favor insira seu telefone">
+    </div>
+
+    <div class="input-group">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M12 17a2 2 0 100-4 2 2 0 000 4zm6-6V9a6 6 0 10-12 0v2H4v10h16V11h-2zm-8-2a4 4 0 118 0v2H10V9z"/>
+      </svg>
+      <input type="password" id="senha" placeholder="Por favor insira sua senha">
+    </div>
+
+    <div class="remember">
+      <input type="checkbox" id="lembrar">
+      <label for="lembrar">Lembrar a Senha</label>
+    </div>
+
+    <button class="btn-login" onclick="login()">LOGIN</button>
+    <button class="btn-register" onclick="redirectToRegister()">Registro</button>
+  </div>
+
+  <div id="toast"></div>
+
+  <script>
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+    }
+
+    function login() {
+        var telefone = document.getElementById('telefone').value.trim();
+        var senha = document.getElementById('senha').value.trim();
+
+        if (telefone === '' || senha === '') {
+            showToast('Por favor, preencha todos os campos.');
+            return;
+        }
+
+        fetch('https://meuappi.onrender.com/usuarios?telefone=' + telefone)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length === 0) {
+                    showToast('Usuário não existe, por favor cadastre-se.');
+                    return;
+                }
+
+                var user = data.find(u => u.senha === senha);
+
+                if (user) {
+                    localStorage.setItem("user_data", JSON.stringify(user));
+                    localStorage.setItem("user_id", user.id);
+                    showToast('Login bem-sucedido!');
+                    window.location.href = 'home.html';
+                } else {
+                    showToast('Senha incorreta!');
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao realizar o login:', error);
+                showToast('Ocorreu um erro. Tente novamente.');
+            });
+    }
+
+    function redirectToRegister() {
+        window.location.href = 'registrar.html';
+    }
+  </script>
+
+</body>
+</html>

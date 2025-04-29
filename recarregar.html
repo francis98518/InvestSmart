@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recarregar Saldo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-800 font-sans">
+
+  <!-- Header -->
+  <header class="bg-blue-600 text-white py-4 shadow-md sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto px-4 flex items-center">
+      <button onclick="history.back()" class="mr-4 text-white">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <h1 class="text-xl font-bold">Recarregar Saldo</h1>
+    </div>
+  </header>
+
+  <!-- Conteúdo -->
+  <main class="max-w-2xl mx-auto px-4 py-10">
+    <!-- Instrução -->
+    <h2 class="text-xl font-semibold mb-6">Selecione um valor ou digite outro:</h2>
+
+    <!-- Valores Rápidos -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
+      <button class="bg-white border border-blue-500 text-blue-600 py-3 rounded-lg font-semibold hover:bg-blue-50" onclick="selecionarValor(5000)">Kz 5.000</button>
+      <button class="bg-white border border-blue-500 text-blue-600 py-3 rounded-lg font-semibold hover:bg-blue-50" onclick="selecionarValor(20000)">Kz 20.000</button>
+      <button class="bg-white border border-blue-500 text-blue-600 py-3 rounded-lg font-semibold hover:bg-blue-50" onclick="selecionarValor(50000)">Kz 50.000</button>
+      <button class="bg-white border border-blue-500 text-blue-600 py-3 rounded-lg font-semibold hover:bg-blue-50" onclick="selecionarValor(100000)">Kz 100.000</button>
+      <button class="bg-white border border-blue-500 text-blue-600 py-3 rounded-lg font-semibold hover:bg-blue-50" onclick="selecionarValor(200000)">Kz 200.000</button>
+      <button class="bg-white border border-blue-500 text-blue-600 py-3 rounded-lg font-semibold hover:bg-blue-50" onclick="selecionarValor(300000)">Kz 300.000</button>
+      <button class="bg-white border border-blue-500 text-blue-600 py-3 rounded-lg font-semibold hover:bg-blue-50" onclick="selecionarValor(500000)">Kz 500.000</button>
+      <button class="bg-white border border-blue-500 text-blue-600 py-3 rounded-lg font-semibold hover:bg-blue-50" onclick="selecionarValor(1200000)">Kz 1.200.000</button>
+    </div>
+
+    <!-- Campo personalizado -->
+    <input type="number" id="valorPersonalizado" placeholder="Ou digite um valor..." class="w-full px-4 py-3 mb-6 border border-gray-300 rounded-lg" />
+
+    <!-- Selecione o canal -->
+    <label class="block text-lg font-medium mb-2">Escolha o canal:</label>
+    <select id="canalSelecionado" class="w-full px-4 py-3 mb-6 border border-gray-300 rounded-lg">
+      <option value="canal1">Canal 1</option>
+    </select>
+
+    <!-- Botão Confirmar -->
+    <button onclick="confirmarRecarregamento()" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700">
+      Confirmar e Selecionar Banco
+    </button>
+  </main>
+
+  <script>
+    function selecionarValor(valor) {
+      document.getElementById('valorPersonalizado').value = valor;
+    }
+
+    function confirmarRecarregamento() {
+      const valor = document.getElementById('valorPersonalizado').value;
+      const canal = document.getElementById('canalSelecionado').value;
+
+      if (!valor || valor < 5000) {
+        alert("Por favor, selecione ou insira um valor válido (mínimo 5.000 Kz).");
+        return;
+      }
+
+      // Salvar dados no localStorage para passar para a próxima página
+      localStorage.setItem("recarregar_valor", valor);
+      localStorage.setItem("recarregar_canal", canal);
+
+      // Redirecionar para a próxima etapa (seleção de banco)
+      window.location.href = "selecionar-banco.html";
+    }
+  </script>
+
+</body>
+</html>

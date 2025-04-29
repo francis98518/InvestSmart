@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InvestSmart - Plataforma de Investimento</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Estilo extra para hover nos ícones -->
+  <style>
+    footer svg, nav svg {
+      transition: stroke 0.3s ease, color 0.3s ease;
+    }
+    footer svg:hover, nav svg:hover {
+      stroke: #ffffff;
+    }
+  </style>
+
+  <!-- Estilo Carrossel -->
+  <style>
+    .carousel {
+      display: flex;
+      transition: transform 1s ease-in-out;
+    }
+    .carousel img {
+      width: 100%;
+      flex-shrink: 0;
+    }
+    #carrossel-container {
+      border: 5px solid red;
+      height: 250px; /* Carrossel mais curto */
+      overflow: hidden;
+      margin-top: 20px; /* Deixa um pequeno espaço após o cabeçalho */
+    }
+    #carrossel {
+      display: flex;
+      height: 100%;
+    }
+    #carrossel img {
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Estilo da seção de dicas */
+    .dicas-container {
+      background-image: url('https://fc244.com/static/country/pt-AO.png');
+      background-size: cover;
+      background-position: center;
+      padding: 40px 20px;
+      color: white;
+    }
+    .dica {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      margin: 10px 0;
+      border-radius: 8px;
+    }
+    .dica h3 {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .dica p {
+      font-size: 1rem;
+    }
+
+    /* Estilo para as imagens laterais */
+    .img-left, .img-right {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 30%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .img-left {
+      left: 0;
+    }
+    .img-right {
+      right: 0;
+    }
+
+    /* Estilos para as novas seções */
+    .recarregar, .retirar {
+      padding: 20px;
+      margin-top: 40px;
+      background-color: #f7fafc;
+      border-radius: 8px;
+    }
+
+    .recarregar button, .retirar button {
+      padding: 10px 20px;
+      background-color: #3182ce;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .recarregar button:hover, .retirar button:hover {
+      background-color: #2b6cb0;
+    }
+
+    /* Estilo para o quadro de anúncio */
+    #anuncio {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: #4CAF50;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.2rem;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #anuncio button {
+      background-color: transparent;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+
+
+
+<!-- HEADER -->
+<header class="bg-black text-white py-4 sticky top-0 shadow-md z-50">
+  <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold">InvestSmart</h1>
+
+    <div class="flex items-center space-x-4">
+      <!-- Bandeira Nacional (sem invert) -->
+      <img src="https://fc244.com/static/country/pt-AO.png" alt="Bandeira Nacional" class="w-6 h-4 md:w-8 md:h-5 object-cover rounded-sm" />
+
+      <!-- Ícone de Mensagem (com invert) -->
+      <img src="https://fc244.com/static/icons/ic_message.png" alt="Mensagens" class="w-5 h-5 md:w-6 md:h-6 invert" />
+    </div>
+  </div>
+</header>
+
+<!-- CARROSSEL DE IMAGENS -->
+<section class="py-0">
+  <div id="carrossel-container" class="max-w-6xl mx-auto px-4 text-center">
+    <div id="carrossel" class="relative flex">
+      <img src="https://images.unsplash.com/photo-1588627541420-fce3f661b779?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fG1vdG98ZW58MHx8MHx8fDA%3D" alt="Moto 1">
+      <img src="https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bW90b3xlbnwwfHwwfHx8MA%3D%3D" alt="Moto 2">
+      <img src="https://images.unsplash.com/photo-1596687760372-4c0d266059a7?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fG1vdG98ZW58MHx8MHx8fDA%3D" alt="Moto 3">
+      <img src="https://media.istockphoto.com/id/1512443291/pt/foto/delivery-man-arriving-at-destination-motoboy.webp?a=1&b=1&s=612x612&w=0&k=20&c=b3LH7zYnpYYa5EE1Ffk8jTmsIA22n--AzJATYaE251U=" alt="Moto 4">
+      <img src="https://media.istockphoto.com/id/1873910742/pt/foto/motorcyclists-crossing-the-atacama-desert.webp?a=1&b=1&s=612x612&w=0&k=20&c=Akl5QtY5_-pweyLgrnJbAu2qyAOl5Lqh9nLuVCUfn2E=" alt="Moto 5">
+      <img src="https://media.istockphoto.com/id/2086786836/pt/foto/chopper-motorcycles-parked.webp?a=1&b=1&s=612x612&w=0&k=20&c=3cbSnpolefHs7gPEKAK6nG_JDiyYQno9hP_SfLD_-yM=" alt="Moto 6">
+      <img src="https://fc244.com/static/country/pt-AO.png" alt="Moto 3">
+    </div>
+  </div>
+</section>
+
+<!-- SEÇÃO AÇÕES (Recarregar + Retirar) -->
+<section class="acoes bg-gray-100 p-6 rounded-lg max-w-xl mx-auto text-center shadow-md">
+  <h2 class="text-2xl font-semibold mb-4">Ações da Conta</h2>
+  <p class="mb-6">Gerencie seus investimentos com facilidade usando as opções abaixo.</p>
+
+  <div class="flex justify-center gap-6">
+    <!-- Botão Recarregar -->
+    <button onclick="window.location.href='recarregar.html';" class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md transition">
+      <img src="https://cdn-icons-png.flaticon.com/512/992/992651.png" alt="Ícone Recarregar" class="w-5 h-5" />
+      Recarregar
+    </button>
+
+    <!-- Botão Retirar -->
+    <button onclick="window.location.href='retirar.html';" class="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition">
+      <img src="https://fc244.com/static/icons/next.svg" alt="Ícone Retirar" class="w-5 h-5" />
+      Retirar
+    </button>
+  </div>
+</section>
+
+<!-- DICAS DE MOTO E INVESTIMENTO -->
+<section class="dicas-container relative">
+  <img class="img-left" src="https://media.istockphoto.com/id/1512443291/pt/foto/delivery-man-arriving-at-destination-motoboy.webp?a=1&b=1&s=612x612&w=0&k=20&c=b3LH7zYnpYYa5EE1Ffk8jTmsIA22n--AzJATYaE251U=" alt="Motoboy chegando">
+  <img class="img-right" src="https://media.istockphoto.com/id/1457596651/pt/foto/traveling-on-a-motorcycle-on-the-roads.webp?a=1&b=1&s=612x612&w=0&k=20&c=_r839san-OBmNhztTgPi5f9895qThZBAy5M8Lma8aeo=" alt="Viajar de moto">
+  
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="dica">
+      <h3>Dica de Moto</h3>
+      <p>Antes de fazer qualquer investimento, considere o tipo de moto que você deseja, seus custos e manutenção. Investir em uma moto é uma forma de se aproximar do seu estilo de vida e das suas necessidades.</p>
+    </div>
+    <div class="dica">
+      <h3>Dica de Investir</h3>
+      <p>Investir é um passo importante para garantir o seu futuro. Certifique-se de que os seus investimentos estão diversificados, alinhados aos seus objetivos e com um bom risco controlado.</p>
+    </div>
+    <div class="dica">
+      <h3>Seja Seguro</h3>
+      <p>Investir com segurança é essencial. Sempre faça uma pesquisa profunda antes de decidir onde colocar o seu dinheiro e, claro, busque orientação profissional sempre que necessário.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RODAPÉ NORMAL -->
+<footer class="bg-gray-900 text-gray-300 py-6">
+  <div class="max-w-7xl mx-auto px-4 text-center">
+    <p>&copy; 2025 InvestSmart. Todos os direitos reservados.</p>
+    <div class="flex justify-center gap-6 mt-4">
+      <!-- Ícone Casa -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 stroke-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18" />
+      </svg>
+    </div>
+  </div>
+</footer>
+
+<!-- FOOTER FIXO ESTILO APP -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 shadow-inner z-50 md:hidden">
+  <div class="flex justify-around items-center py-2 text-gray-600">
+    <a href="home.html" class="flex flex-col items-center text-sm hover:text-blue-600">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9l9-6 9 6v10.5A1.5 1.5 0 0 1 19.5 21h-15A1.5 1.5 0 0 1 3 19.5V9z" />
+      </svg>
+      Início
+    </a>
+    <a href="investir.html" class="flex flex-col items-center text-sm hover:text-blue-600">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8v1m0 7v1m-9-5a9 9 0 1 1 18 0 9 9 0 0 1-18 0z" />
+      </svg>
+      Investir
+    </a>
+    <a href="perfil.html" class="flex flex-col items-center text-sm hover:text-blue-600">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 6.75a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0zM4.5 20.25a8.25 8.25 0 0 1 15 0" />
+      </svg>
+      Perfil
+    </a>
+    <a href="tarefas.html" class="flex flex-col items-center text-sm hover:text-blue-600">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5h18M3 12h18M3 19h18" />
+      </svg>
+      Equipe
+    </a>
+  </div>
+</nav>
+
+<!-- Script para carrossel -->
+<script>
+  const slides = document.getElementById('carrossel');
+  let currentIndex = 0;
+
+  const updateCarrossel = () => {
+    const width = slides.children[0].offsetWidth;
+    slides.style.transform = `translateX(-${currentIndex * width}px)`;
+  };
+
+  setInterval(() => {
+    currentIndex = (currentIndex < slides.children.length - 1) ? currentIndex + 1 : 0;
+    updateCarrossel();
+  }, 3000);
+</script>
+
+</body>
+</html>

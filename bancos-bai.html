@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pagamento - Banco BAI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fadeIn {
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .toast {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-width: 250px;
+      max-width: 90vw;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      color: white;
+      font-weight: 500;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .toast-icon {
+      font-size: 1.25rem;
+    }
+
+    .opacity-0 {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100 text-gray-800 font-sans">
+
+  <!-- Header -->
+  <header class="bg-blue-600 text-white py-4 shadow-md sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto px-4 flex items-center">
+      <button onclick="history.back()" class="mr-4 text-white">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <h1 class="text-xl font-bold">Pagamento - BAI</h1>
+    </div>
+  </header>
+
+  <!-- Conteúdo -->
+  <main class="max-w-xl mx-auto px-4 py-10">
+    <div class="bg-white p-6 rounded-lg shadow text-center">
+      <img src="https://fc244.com/static/images/bg_share.png" alt="BAI" class="mx-auto h-14 mb-4" />
+
+      <h2 class="text-lg font-semibold mb-2">BAI</h2>
+      <p id="nome-usuario" class="text-sm text-gray-700 mb-2"></p>
+
+      <p class="mb-2">Nome: <strong>Querida Creusia</strong></p>
+      <p class="mb-2 flex justify-center items-center gap-2">
+        IBAN: <strong id="iban-text">004000007381277910159</strong>
+        <button onclick="copiarTexto('iban-text')" class="text-gray-600 hover:text-gray-900" title="Copiar">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8l6 6v8a2 2 0 01-2 2h-2"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 2v6h6"/>
+          </svg>
+        </button>
+      </p>
+      <p class="mb-2 flex justify-center items-center gap-2">
+        Valor: <strong id="valor">A carregar...</strong>
+        <button onclick="copiarTexto('valor')" class="text-gray-600 hover:text-gray-900" title="Copiar">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8l6 6v8a2 2 0 01-2 2h-2"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 2v6h6"/>
+          </svg>
+        </button>
+      </p>
+      <p class="mb-6 text-sm text-gray-600">* Use o valor exato e guarde o comprovativo.</p>
+
+      <!-- Upload de Comprovativo -->
+      <div class="mt-6">
+        <label for="comprovativo" class="cursor-pointer inline-block bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded text-sm flex items-center justify-center gap-2">
+          <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828L18 9.828V15a2 2 0 002 2h2m-6-6H6a2 2 0 00-2 2v8" />
+          </svg>
+          Enviar Comprovativo
+        </label>
+        <input type="file" id="comprovativo" accept="image/*" class="hidden" onchange="prepararEnvio()" />
+        <p id="mensagem-envio" class="text-green-600 mt-3 text-sm hidden">Enviado com sucesso!</p>
+      </div>
+
+      <!-- Botão Confirmar -->
+      <button id="confirmar" onclick="confirmarEnvio()" class="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded disabled:opacity-50" disabled>
+        Confirmar
+      </button>
+    </div>
+
+    <!-- Cartão de Dicas -->
+    <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-900 p-4 mt-8 rounded shadow">
+      <h3 class="font-semibold text-lg mb-2">📌 Dicas Importantes para Depósito</h3>
+      <ul class="list-disc list-inside text-sm space-y-1 text-left">
+        <li>🕖 Horário de depósitos: <strong>Todos os dias das 7h às 22h</strong>.</li>
+        <li>⏱️ O depósito deve refletir em até <strong>14 minutos</strong>.</li>
+        <li>📞 Caso não apareça, entre em contato com o <strong>gerente</strong> imediatamente.</li>
+        <li>🚫 <strong>Não envie comprovantes falsos</strong>. Isso pode causar <strong>banimento da conta</strong>.</li>
+        <li>💵 Use sempre o <strong>valor exato</strong> que foi informado.</li>
+        <li>📁 Garanta que o <strong>comprovativo esteja legível</strong> e completo.</li>
+      </ul>
+    </div>
+  </main>
+
+  <!-- Toast container -->
+  <div id="toast-container" class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 space-y-2 flex flex-col items-center"></div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const valor = params.get("valor") || "0";
+    document.getElementById("valor").innerText = `Kz ${Number(valor).toLocaleString()}`;
+
+    const userData = JSON.parse(localStorage.getItem("user_data"));
+    if (userData && userData.nome) {
+      document.getElementById("nome-usuario").innerText = `Nome: ${userData.nome}`;
+    }
+
+    let comprovativoBase64 = "";
+
+    function prepararEnvio() {
+      const input = document.getElementById("comprovativo");
+      const arquivo = input.files[0];
+      if (!arquivo) return;
+
+      const reader = new FileReader();
+      reader.readAsDataURL(arquivo);
+      reader.onloadend = () => {
+        comprovativoBase64 = reader.result.split(',')[1];
+        document.getElementById("mensagem-envio").classList.remove("hidden");
+        document.getElementById("confirmar").disabled = false;
+        mostrarToast("Comprovativo carregado com sucesso!", "success");
+      };
+    }
+
+    function confirmarEnvio() {
+      if (!userData || !userData.id || !comprovativoBase64) {
+        mostrarToast("Dados incompletos ou comprovativo não enviado.", "error");
+        return;
+      }
+
+      const dadosDeposito = {
+        usuario_id: userData.id,
+        valor: valor,
+        canal: "canal1",
+        comprovativo: comprovativoBase64
+      };
+
+      localStorage.setItem("deposito_pendente", JSON.stringify(dadosDeposito));
+      window.location.href = "perfil.html";
+    }
+
+    function copiarTexto(id) {
+      const texto = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(texto).then(() => {
+        mostrarToast(`Copiado: ${texto}`, "info");
+      });
+    }
+
+    function mostrarToast(mensagem, tipo = "info") {
+      const container = document.getElementById("toast-container");
+
+      const cores = {
+        success: "bg-green-600",
+        error: "bg-red-600",
+        info: "bg-blue-600"
+      };
+
+      const icones = {
+        success: "✅",
+        error: "⚠️",
+        info: "ℹ️"
+      };
+
+      const toast = document.createElement("div");
+      toast.className = `toast ${cores[tipo] || "bg-gray-800"} animate-fadeIn`;
+
+      toast.innerHTML = `
+        <span class="toast-icon">${icones[tipo] || "🔔"}</span>
+        <span>${mensagem}</span>
+      `;
+
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.classList.add("opacity-0");
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

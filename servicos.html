@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atendimento ao Cliente</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url(https://fc244.com/static/farm/bg_topRight.svg);
+        }
+        header {
+            background-color: #0078D4;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+        }
+        header i {
+            font-size: 24px;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 36px;
+            flex-grow: 1;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding: 40px 20px;
+        }
+        .info-box {
+            background-image: url(https://fc244.com/static/images/bg_share.png);
+
+            padding: 20px;
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .info-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+        .info-box h3 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .info-box p {
+            color: #555;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .telegram-icons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .telegram-icons div {
+            text-align: center;
+        }
+        .telegram-icons i {
+            font-size: 50px;
+            color: #0078D4;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+        .telegram-icons i:hover {
+            color: #005fa3;
+        }
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        footer {
+            text-align: center;
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <i class="fas fa-arrow-left" onclick="window.history.back();"></i> 
+        <li>Atendimento ao Cliente</li>
+    </header>
+
+    <div class="container">
+        <!-- Informações sobre horário de atendimento -->
+        <div class="info-box">
+            <h3>Horário de Atendimento</h3>
+            <p>Atendemos de segunda a sábado, das 09h às 22h. Estamos prontos para ajudar!</p>
+        </div>
+
+        <!-- Informações sobre como entrar em contato -->
+        <div class="info-box">
+            <h3>Entre em Contato</h3>
+            <p>Nosso canal principal de atendimento é via Telegram. Clique abaixo para conversar conosco!</p>
+            <a href="https://t.me/investSmartjdjddj" target="_blank">
+                <i class="fab fa-telegram-plane" style="font-size: 40px; color: #0078D4;"></i> Canal
+            </a>
+        </div>
+
+        <!-- Logotipos do Telegram com ícones personalizados -->
+        <div class="telegram-icons">
+            <div>
+                <h3>
+                    <img src="https://www.aogopa.com/assets/share-B28EYqUS.svg" alt="Canal Logo" class="card-icon">
+                    <span><strong>Canal</strong></span>
+                </h3>
+                <a href="https://t.me/+5uZau4rAGpljZmZk" target="_blank">Acesse</a>
+            </div>
+            <div>
+                <h3>
+                    <img src="https://www.aogopa.com/assets/share-B28EYqUS.svg" alt="Grupo Logo" class="card-icon">
+                    <span><strong>Grupo</strong></span>
+                </h3>
+                <a href="https://t.me/investSmartjdjddj" target="_blank">Acesse</a>
+            </div>
+            <div>
+                <h3>
+                    <img src="https://www.aogopa.com/assets/share-B28EYqUS.svg" alt="Gerente Logo" class="card-icon">
+                    <span><strong>Gerente</strong></span>
+                </h3>
+                <a href="https://t.me/Tavaresvtson" target="_blank">Acesse</a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Atendimento ao Cliente | Todos os direitos reservados.</p>
+    </footer>
+
+</body>
+</html>

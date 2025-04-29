@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perfil - InvestSmart</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Estilo adicional -->
+  <style>
+    footer svg,
+    nav svg {
+      transition: stroke 0.3s ease, color 0.3s ease;
+    }
+
+    footer svg:hover,
+    nav svg:hover {
+      stroke: #ffffff;
+    }
+
+    /* Rodapé invisível */
+    footer.invisible-footer {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    body {
+      min-height: 100vh;
+      padding-bottom: 100px; /* Espaço para o rodapé invisível */
+    }
+
+    body:scroll {
+      padding-bottom: 200px;
+    }
+
+    body:hover .invisible-footer {
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100 text-gray-800 font-sans">
+
+  <!-- HEADER -->
+  <header class="bg-black text-white py-4 sticky top-0 shadow-md z-50">
+    <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold">InvestSmart</h1>
+    </div>
+  </header>
+
+  <!-- CONTEÚDO DO PERFIL -->
+  <section class="py-10">
+    <div class="max-w-7xl mx-auto px-4">
+      <!-- Mensagem de Boas-vindas -->
+      <div class="bg-white p-6 rounded-lg shadow-lg mb-8">
+        <div class="flex items-center mb-4">
+          <!-- Ícone de pessoa -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-blue-600 mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 6.75a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0zM4.5 20.25a8.25 8.25 0 0 1 15 0" />
+          </svg>
+          <!-- Saudação -->
+          <div>
+            <p id="saudacao" class="text-xl font-semibold"></p>
+            <p class="text-gray-600">Bem-vindo ao seu painel!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cartão de Perfil e Saldo -->
+      <div class="bg-white p-6 rounded-lg shadow-lg mb-8">
+        <h2 class="text-2xl font-semibold mb-4">Perfil do Usuário</h2>
+        <div class="flex justify-between items-center mb-4">
+          <!-- Foto do perfil -->
+          <img src="https://images.unsplash.com/file-1707883121023-8e3502977149image?w=416&dpr=2&auto=format&fit=crop&q=60" alt="Cartão de Crédito" class="w-24 h-16">
+          <!-- Saldo -->
+          <div class="text-right">
+            <p class="text-lg font-bold text-gray-700">Saldo Atual</p>
+            <p id="saldo" class="text-2xl text-blue-700">
+          </div>
+        </div>
+
+        <!-- Ícones de Ações: Retirar e Recarregar -->
+        <div class="flex justify-between mb-4">
+          <!-- Retirar -->
+          <div class="text-center bg-white p-4 rounded-lg shadow hover:shadow-lg transition">
+            <a href="retirar.html" class="flex flex-col items-center text-sm text-gray-600 hover:text-blue-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 10l5 5-5 5M3 10l5 5-5 5" />
+              </svg>
+              Retirar
+            </a>
+          </div>
+
+          <!-- Recarregar -->
+          <div class="text-center bg-white p-4 rounded-lg shadow hover:shadow-lg transition">
+            <a href="recarregar.html" class="flex flex-col items-center text-sm text-gray-600 hover:text-blue-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v2M12 19v2M4.93 4.93l1.41 1.41M18.36 18.36l1.41 1.41M4.93 19.07l1.41-1.41M18.36 5.64l1.41-1.41M12 9a3 3 0 0 1 3 3m0 0a3 3 0 0 1-3 3m0 0a3 3 0 0 1-3-3m0 0a3 3 0 0 1 3-3" />
+              </svg>
+              Recarregar
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navegação do Perfil -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8">
+        <!-- Adicionar Conta -->
+        <div class="text-center bg-white p-4 rounded-lg shadow hover:shadow-lg transition">
+          <a href="adcionar.html" class="flex flex-col items-center text-sm text-gray-600 hover:text-blue-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 5v14M5 12h14" />
+            </svg>
+            Adicionar Conta
+          </a>
+        </div>
+        <!-- Sair -->
+        <div class="text-center bg-white p-4 rounded-lg shadow hover:shadow-lg transition">
+          <a href="index.html" class="flex flex-col items-center text-sm text-gray-600 hover:text-blue-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 9l3 3-3 3M7 12h10" />
+            </svg>
+            Sair
+          </a>
+        </div>
+        <!-- Histórico -->
+        <div class="text-center bg-white p-4 rounded-lg shadow hover:shadow-lg transition">
+          <a href="historico.html" class="flex flex-col items-center text-sm text-gray-600 hover:text-blue-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7h18M3 11h18M3 15h18M3 19h18" />
+            </svg>
+            Histórico
+          </a>
+        </div>
+        <!-- Serviço Tarefa -->
+        <div class="text-center bg-white p-4 rounded-lg shadow hover:shadow-lg transition">
+          <a href="servicos.html" class="flex flex-col items-center text-sm text-gray-600 hover:text-blue-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7h18M3 11h18M3 15h18M3 19h18" />
+            </svg>
+            Antendimento
+          </a>
+        </div>
+        <!-- Time -->
+        <div class="text-center bg-white p-4 rounded-lg shadow hover:shadow-lg transition">
+          <a href="tarefas.html" class="flex flex-col items-center text-sm text-gray-600 hover:text-blue-600">
+            <!-- Ícone de grupo de pessoas -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 14v-2a4 4 0 1 0-8 0v2m4 0h4m-8 0H4m4 0v2a4 4 0 0 1 8 0v-2M8 8h8m-4-4v4" />
+            </svg>
+            Equipe
+          </a>
+        </div>
+        
+        <!-- Sobre -->
+        <div class="text-center bg-white p-4 rounded-lg shadow hover:shadow-lg transition">
+          <a href="sobre.html" class="flex flex-col items-center text-sm text-gray-600 hover:text-blue-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v18M3 12h18" />
+            </svg>
+            Sobre Nós
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RODAPÉ FIXO ESTILO APP -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 shadow-inner z-50 md:hidden">
+    <div class="flex justify-around items-center py-2 text-gray-600">
+      <a href="home.html" class="flex flex-col items-center text-sm hover:text-blue-600">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9l9-6 9 6v10.5A1.5 1.5 0 0 1 19.5 21h-15A1.5 1.5 0 0 1 3 19.5V9z" />
+        </svg>
+        Início
+      </a>
+      <a href="investir.html" class="flex flex-col items-center text-sm hover:text-blue-600">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8v1m0 7v1m-9-5a9 9 0 1 1 18 0 9 9 0 0 1-18 0z" />
+        </svg>
+        Investir
+      </a>
+      <a href="tarefas.html" class="flex flex-col items-center text-sm hover:text-blue-600">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7h18M3 11h18M3 15h18M3 19h18" />
+        </svg>
+        Equipe
+      </a>
+      <a href="perfil.html" class="flex flex-col items-center text-sm hover:text-blue-600">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 6.75a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0zM4.5 20.25a8.25 8.25 0 0 1 15 0" />
+        </svg>
+        Perfil
+      </a>
+    </div>
+  </nav>
+<script>async function buscarDadosDoBackend() {
+  const userId = JSON.parse(localStorage.getItem("user_data"))?.id;
+
+  if (!userId) {
+    window.location.href = 'index.html';
+    return;
+  }
+
+  try {
+    const resposta = await fetch(`https://meuappi.onrender.com/usuarios/${userId}`);
+    if (!resposta.ok) throw new Error('Erro ao buscar dados do usuário');
+
+    const dadosAtualizados = await resposta.json();
+
+    // Atualiza no localStorage, se quiser manter para outras páginas
+    localStorage.setItem("user_data", JSON.stringify(dadosAtualizados));
+
+    // Atualiza na tela
+    document.getElementById('saudacao').innerText = `Olá, ${dadosAtualizados.telefone}`;
+    document.getElementById('saldo').innerText = `Kz ${dadosAtualizados.saldo.toFixed(2)}`;
+
+  } catch (erro) {
+    console.error("Erro ao carregar dados:", erro);
+    window.location.href = 'login.html';
+  }
+}
+
+window.onload = function () {
+  buscarDadosDoBackend(); // Busca sempre dados atualizados
+};
+</script>

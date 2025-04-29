@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adicionar Conta</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #001a33;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: #003366; /* Azul escuro para o texto */
+    }
+
+    header {
+      background-color: #003366; /* Azul escuro */
+      color: #fff; /* Texto branco */
+      padding: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    header a {
+      text-decoration: none;
+      color: white;
+      font-size: 20px;
+      margin-right: 10px;
+    }
+
+    header h1 {
+      font-size: 20px;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      flex-direction: column; /* Alinha o conteúdo verticalmente */
+    }
+
+    .form-container {
+      width: 100%;
+      max-width: 400px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 22px;
+      color: #003366; /* Azul escuro */
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    .input-group label {
+      font-size: 14px;
+      margin-bottom: 5px;
+      display: block;
+      color: #003366; /* Azul escuro para o texto */
+    }
+
+    .input-group input[type="text"], .input-group input[type="password"], .input-group select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #fff;
+      font-size: 14px;
+      color: #003366; /* Azul escuro para o texto */
+    }
+
+    .radio-group {
+      display: flex;
+      margin-bottom: 20px;
+      color: #003366; /* Azul escuro */
+    }
+
+    .radio-group label {
+      margin-right: 20px;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      color: #003366; /* Azul escuro */
+    }
+
+    .radio-group input {
+      margin-right: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background-color: #003366; /* Azul escuro */
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #001a33; /* Azul escuro ainda mais intenso no hover */
+    }
+
+    .card {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: none; /* Inicialmente escondido */
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .card h3 {
+      color: #003366;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: #003366;
+    }
+
+    .card img {
+      width: 100%;
+      max-width: 300px; /* Ajuste o tamanho da imagem conforme necessário */
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    @media screen and (max-width: 768px) {
+      .form-container {
+        width: 90%;
+      }
+
+      .input-group input[type="text"], .input-group input[type="password"], .input-group select {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="perfil.html">←</a>
+    <h1>Adicionar Conta</h1>
+  </header>
+
+  <main>
+    <div class="form-container">
+      <div class="radio-group">
+        <label><input type="radio" name="tipo" checked> BANK</label>
+      </div>
+
+      <div class="input-group">
+        <label>Nome do Titular</label>
+        <input type="text" id="nomeTitular" placeholder="Por favor, insira Nome do Titular">
+      </div>
+
+      <div class="input-group">
+        <label>Número da conta bancária (IBAN)</label>
+        <input type="text" id="iban" placeholder="Por favor, insira IBAN" maxlength="21" pattern=".{21}" required>
+        <small style="color: #ff0000;">O IBAN deve ter exatamente 21 caracteres.</small>
+      </div>
+
+      <div class="input-group">
+        <label>Nome do banco</label>
+        <select id="banco" required>
+          <option value="BIC">BIC</option>
+          <option value="BFA">BFA</option>
+          <option value="BAI">BAI</option>
+          <option value="ATLANTICO">ATLANTICO</option>
+          <option value="BPC">BPC</option>
+          <option value="YETU">YETU</option>
+          <option value="SUL">SUL</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label>Senha de retirada</label>
+        <input type="password" id="senha" placeholder="Por favor, insira Senha de retirada" required>
+      </div>
+
+      <button onclick="salvarDados()">Enviar</button>
+    </div>
+
+    <!-- Cartão exibido após salvar os dados -->
+    <div id="cartao" class="card">
+      <img src="https://fc244.com/static/country/pt-AO.png" alt="Imagem do Cartão"> <!-- Substitua pela URL real -->
+      <h3>Informações da Conta</h3>
+      <p><strong>IBAN:</strong> <span id="cartaoIban"></span></p>
+      <p><strong>Nome do Banco:</strong> <span id="cartaoBanco"></span></p>
+    </div>
+  </main>
+
+  <script>
+    function salvarDados() {
+      // Pegando os valores dos inputs
+      const nomeTitular = document.getElementById('nomeTitular').value;
+      const iban = document.getElementById('iban').value;
+      const banco = document.getElementById('banco').value;
+      const senha = document.getElementById('senha').value;
+
+      // Verificando se os campos têm 21 caracteres no IBAN
+      if (iban.length !== 21) {
+        alert('O IBAN deve ter exatamente 21 caracteres.');
+        return;
+      }
+
+      // Salvando os dados no localStorage
+      const conta = {
+        nomeTitular,
+        iban,
+        banco,
+        senha
+      };
+
+      localStorage.setItem('conta', JSON.stringify(conta));
+
+      // Exibindo os dados no cartão
+      document.getElementById('cartaoIban').innerText = iban;
+      document.getElementById('cartaoBanco').innerText = banco;
+
+      // Exibir o cartão com as informações
+      document.getElementById('cartao').style.display = 'block';
+
+      // Limpando o formulário
+      document.querySelector('.form-container').reset();
+    }
+
+    // Carregar dados do localStorage ao carregar a página (se houver)
+    window.onload = function() {
+      const conta = JSON.parse(localStorage.getItem('conta'));
+      if (conta) {
+        document.getElementById('cartaoIban').innerText = conta.iban;
+        document.getElementById('cartaoBanco').innerText = conta.banco;
+        document.getElementById('cartao').style.display = 'block'; // Mostra o cartão com os dados
+      }
+    }
+  </script>
+</body>
+</html>

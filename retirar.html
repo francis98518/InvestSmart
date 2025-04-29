@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Investsmart</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #000;
+    }
+
+    .header {
+      background: url('https://i.postimg.cc/7hPdHXQj/494013433-122127897818409350-4522044715957493517-n.jpg') no-repeat center center;
+      background-size: cover;
+      height: 150px;
+      position: relative;
+    }
+
+    .back-button {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 100;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-button:hover {
+      background-color: white;
+    }
+
+    .back-button svg {
+      width: 20px;
+      height: 20px;
+      fill: black;
+    }
+
+    .header h1 {
+      position: absolute;
+      top: 10px;
+      left: 60px;
+      color: rgb(23, 1, 42);
+      font-size: 20px;
+    }
+
+    .header h2 {
+      position: absolute;
+      bottom: 10px;
+      left: 20px;
+      color: black;
+      font-size: 18px;
+    }
+
+    .form-container {
+      background: linear-gradient(to bottom, rgb(74, 4, 106), #3e036a);
+      padding: 20px;
+      border-radius: 0 0 15px 15px;
+      max-width: 500px;
+      margin: auto;
+      color: white;
+    }
+
+    label {
+      font-weight: bold;
+      font-size: 14px;
+      display: block;
+      margin-top: 15px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 10px;
+      border: none;
+      font-size: 14px;
+    }
+
+    .submit-btn {
+      margin-top: 20px;
+      background: linear-gradient(to right, rgb(157, 0, 255), rgb(39, 10, 166));
+      border: none;
+      padding: 10px;
+      width: 100%;
+      border-radius: 20px;
+      font-weight: bold;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .transaction {
+      background: #fff;
+      margin: 20px auto;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 14px;
+      max-width: 500px;
+    }
+
+    .transaction strong {
+      color: deeppink;
+    }
+
+    .movimentos {
+      margin: 20px auto;
+      color: white;
+      font-size: 13px;
+      max-width: 500px;
+    }
+
+    .movimentos ul {
+      padding-left: 20px;
+    }
+
+    #toast {
+      visibility: hidden;
+      min-width: 250px;
+      margin-left: -125px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 4px;
+      padding: 16px;
+      position: fixed;
+      z-index: 1;
+      left: 50%;
+      bottom: 30px;
+      font-size: 14px;
+    }
+
+    #toast.show {
+      visibility: visible;
+      animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    }
+
+    @keyframes fadein {
+      from {bottom: 0; opacity: 0;}
+      to {bottom: 30px; opacity: 1;}
+    }
+
+    @keyframes fadeout {
+      from {bottom: 30px; opacity: 1;}
+      to {bottom: 0; opacity: 0;}
+    }
+
+    @media (max-width: 480px) {
+      .header h1 { font-size: 16px; left: 55px; }
+      .header h2 { font-size: 14px; left: 10px; }
+      input, select, .submit-btn { font-size: 13px; padding: 8px; }
+      label { font-size: 13px; }
+      .transaction, .movimentos, .form-container { margin: 10px; padding: 15px; }
+      .submit-btn { font-size: 14px; }
+      .back-button { width: 35px; height: 35px; }
+      .back-button svg { width: 16px; height: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="back-button" onclick="history.back()">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+      </svg>
+    </div>
+    <h1>énergie africaine</h1>
+    <h2>Bank Card</h2>
+  </div>
+
+  <div class="form-container">
+    <div><strong>Saldo atual:</strong> <span id="currentBalance">KZ 0.00</span></div>
+
+    <label for="name">Nome:</label>
+    <input type="text" id="name" placeholder="Nome do titular">
+
+    <label for="bank">Banco:</label>
+    <select id="bank">
+      <option>Banco de Fomento Angola</option>
+      <option>Banco BIC</option>
+      <option>Banco BAI</option>
+    </select>
+
+    <label for="iban">Conta Bancária (IBAN):</label>
+    <input type="text" id="iban" placeholder="IBAN">
+
+    <label for="amount">Valor:</label>
+    <input type="number" id="amount" placeholder="Valor para retirada" oninput="calculateDeduction()">
+
+    <label for="finalAmount">Valor após desconto (9%):</label>
+    <input type="text" id="finalAmount" disabled>
+
+    <button class="submit-btn" onclick="retirar()">Enviar</button>
+  </div>
+
+  <div class="transaction">
+    <div>
+        <strong>Valor mínimo de saque:</strong> 550 Kz 
+        <div>
+            <div>
+        <strong>Valor máximo de saque:</strong> 2.000.000 Kz
+      </div>
+      
+    <div><strong>Horário de retiradas:</strong> 08h às 21h</div>
+    <div><strong>Dias disponíveis:</strong> De segunda a sábado</div>
+    <div><strong>Tempo de espera:</strong> 2 a 5 horas</div>
+  </div>
+  
+  
+
+  <div class="transaction">
+    <div><strong>Obs</strong> </div>
+    <div></div>
+    <div></div>
+    <div class="tips">
+      <strong>Dicas:</strong>
+      <ul>
+        <li>Verifique sempre o número de IBAN antes de confirmar a transação.</li>
+        <li>Se o valor não for creditado em sua conta dentro do prazo, entre em contato com o suporte.</li>
+        <li>>Não inicie reclamações antes que o prazo seja cumprido. Reclamações antes disso podem resultar em banimento da plataforma.</li>
+        <li>Se o seu saque for bem-sucedido, publique a confirmação no grupo para receber a sua recompensa!</li>
+
+      </ul>
+    </div>
+  </div>
+  
+ 
+
+  <div id="toast"></div>
+
+  <script>
+    function getUserId() {
+      return localStorage.getItem("user_id");
+    }
+
+    function getSaldoUsuario() {
+      const userId = getUserId();
+      if (!userId) {
+        console.log("Usuário não logado!");
+        window.location.href = 'login.html';
+        return;
+      }
+
+      fetch(`https://meuappi.onrender.com/usuarios/${userId}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.saldo !== undefined) {
+            document.getElementById("currentBalance").textContent = `KZ ${parseFloat(data.saldo).toFixed(2)}`;
+          } else {
+            console.log("Saldo não encontrado");
+          }
+        })
+        .catch(err => {
+          console.log("Erro ao buscar saldo:", err);
+        });
+    }
+
+    function calculateDeduction() {
+      const amount = parseFloat(document.getElementById('amount').value);
+      if (!isNaN(amount)) {
+        const finalAmount = amount * 0.91;
+        document.getElementById('finalAmount').value = finalAmount.toFixed(2);
+      } else {
+        document.getElementById('finalAmount').value = '';
+      }
+    }
+
+    async function retirar() {
+      const iban = document.getElementById('iban').value.trim();
+      const nome = document.getElementById('name').value.trim();
+      const valor = parseFloat(document.getElementById('amount').value.trim());
+
+      if (!iban || !nome || isNaN(valor) || valor <= 0) {
+        showToast('Por favor, preencha todos os campos corretamente.');
+        return;
+      }
+
+      if (valor < 550) {
+        showToast('O valor mínimo para saque é KZ 550.00.');
+        return;
+      }
+
+      const userId = getUserId();
+      if (!userId) {
+        showToast('Usuário não logado. Faça o login para continuar.');
+        return;
+      }
+
+      try {
+        const resUser = await fetch(`https://meuappi.onrender.com/usuarios/${userId}`);
+        const usuario = await resUser.json();
+
+        if (usuario.saldo < valor) {
+          showToast('Saldo insuficiente.');
+          return;
+        }
+
+        const valorComDesconto = valor * 0.91;
+
+        const novoSaldo = usuario.saldo - valor;
+
+        const resUpdate = await fetch(`https://meuappi.onrender.com/usuarios/${userId}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ saldo: novoSaldo })
+        });
+
+        if (!resUpdate.ok) throw new Error('Erro ao atualizar saldo');
+
+        const retirada = {
+          usuarioId: userId,
+          iban: iban,
+          nome: nome,
+          valor: valorComDesconto,
+          data: new Date().toISOString(),
+          status: false
+        };
+
+        const resRetirada = await fetch('https://meuappi.onrender.com/retiradas', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(retirada)
+        });
+
+        if (!resRetirada.ok) throw new Error('Erro ao registrar retirada');
+
+        showToast(`Retirada realizada com sucesso! Valor: AKZ ${valorComDesconto.toFixed(2)}.`);
+        getSaldoUsuario();
+
+      } catch (error) {
+        console.error('Erro:', error);
+        showToast('Erro ao processar retirada.');
+      }
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.className = "show";
+      setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+    }
+
+    window.onload = getSaldoUsuario;
+  </script>
+
+</body>
+</html>
