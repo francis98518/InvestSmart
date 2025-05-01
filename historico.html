@@ -155,7 +155,7 @@
       }
 
       try {
-        const res = await fetch(`https://meuappi.onrender.com/retiradas?usuarioId=${userId}`);
+        const res = await fetch(`https://api-wped.onrender.com/retiradas?usuarioId=${userId}`);
         const retiradas = await res.json();
 
         if (!retiradas.length) {
