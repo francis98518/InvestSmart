@@ -129,64 +129,6 @@
 </head>
 <body class="bg-gray-100 text-gray-800 font-sans">
 
-    <!-- ANÚNCIO POP-UP -->
-<div id="popup-anuncio" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000]">
-    <div class="bg-white rounded-lg shadow-xl max-w-sm w-full p-6 text-center relative">
-      
-      <!-- Ícone superior -->
-      <div class="flex justify-center mb-4">
-        <svg class="w-12 h-12 text-green-600" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 11c0-1.104.896-2 2-2s2 .896 2 2-.896 2-2 2-2-.896-2-2zm0 0v1.5a4.5 4.5 0 11-4.5-4.5H9M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      </div>
-  
-      <h2 class="text-xl font-bold text-gray-800 mb-2">Convide seus amigos e familiares</h2>
-      <p class="text-gray-700 mb-4">Ganhe 30% por indicação:</p>
-  
-      <ul class="text-left text-gray-700 mb-4 list-disc pl-6 text-sm">
-        <li>Nível 1: <strong>30%</strong></li>
-        <li>Nível 2: <strong>30%</strong></li>
-        <li>Nível 3: <strong>30%</strong></li>
-      </ul>
-  
-      <!-- Ações -->
-      <div class="flex justify-between mt-6 items-center">
-        <!-- Botão Fechar -->
-        <button id="fechar-anuncio" class="flex items-center gap-2 bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-          Fechar
-        </button>
-  
-        <!-- Botão Telegram -->
-        <a href="https://t.me/investSmartjdjddj" target="_blank" class="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 0C5.372 0 0 5.373 0 12c0 5.139 3.242 9.479 7.75 11.207v-7.9H5.437v-3.308H7.75V9.33c0-2.305 1.38-3.57 3.494-3.57.999 0 2.042.176 2.042.176v2.25h-1.15c-1.135 0-1.488.703-1.488 1.422v1.705h2.531l-.404 3.308h-2.127v7.9C20.758 21.479 24 17.139 24 12c0-6.627-5.373-12-12-12z"/>
-          </svg>
-          Ir ao grupo
-        </a>
-      </div>
-    </div>
-  </div>
-  
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const fecharBtn = document.getElementById('fechar-anuncio');
-      const popup = document.getElementById('popup-anuncio');
-  
-      // 👉 Sempre mostrar o popup ao carregar a página
-      popup.style.display = 'flex'; // Isso reativa mesmo se o navegador restaurar o DOM do cache
-  
-      // 👉 Fecha apenas para esta sessão atual (não salva em localStorage nem sessionStorage)
-      fecharBtn.addEventListener('click', () => {
-        popup.style.display = 'none';
-      });
-    });
-  </script>
-  
-  
-
 
 
 <!-- HEADER -->
