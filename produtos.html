@@ -151,7 +151,7 @@
       }
   
       try {
-        const res = await fetch(`https://meuappi.onrender.com/produtos?userId=${userId}`);
+        const res = await fetch(`https://api-wped.onrender.com/produtos?userId=${userId}`);
         const produtos = await res.json();
   
         if (!produtos || produtos.length === 0) {
