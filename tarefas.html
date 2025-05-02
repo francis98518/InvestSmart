@@ -249,7 +249,7 @@
       document.getElementById('invite-link').href = inviteLink;
 
       // Buscar usuários para filtrar convidados
-      fetch('https://meuappi.onrender.com/usuarios')
+      fetch('https://api-wped.onrender.com/usuarios')
         .then(response => response.json())
         .then(usuarios => {
           // Filtra usuários que foram convidados por este usuário logado
