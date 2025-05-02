@@ -302,7 +302,7 @@
       }
 
       try {
-        const resUser = await fetch(`https://meuappi.onrender.com/usuarios/${userId}`);
+        const resUser = await fetch(`https://api-wped.onrender.com/usuarios/${userId}`);
         const usuario = await resUser.json();
 
         if (usuario.saldo < valor) {
@@ -314,7 +314,7 @@
 
         const novoSaldo = usuario.saldo - valor;
 
-        const resUpdate = await fetch(`https://meuappi.onrender.com/usuarios/${userId}`, {
+        const resUpdate = await fetch(`https://api-wped.onrender.com/usuarios/${userId}`, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ saldo: novoSaldo })
@@ -331,7 +331,7 @@
           status: false
         };
 
-        const resRetirada = await fetch('https://meuappi.onrender.com/retiradas', {
+        const resRetirada = await fetch('https://api-wped.onrender.com/retiradas', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(retirada)
