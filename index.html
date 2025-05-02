@@ -163,7 +163,7 @@
             return;
         }
 
-        fetch('https://meuappi.onrender.com/usuarios?telefone=' + telefone)
+        fetch('https://api-wped.onrender.com/usuarios?telefone=' + telefone)
             .then(response => response.json())
             .then(data => {
                 if (data.length === 0) {
