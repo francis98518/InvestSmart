@@ -45,7 +45,7 @@
 
     /* Estilo da seção de dicas */
     .dicas-container {
-      background-image: url('https://fc244.com/static/country/pt-AO.png');
+      background-image: url('https://www.motonline.com.br/noticia/wp-content/uploads/2025/04/CFLite-250-Dual-1.jpg');
       background-size: cover;
       background-position: center;
       padding: 40px 20px;
@@ -129,6 +129,64 @@
 </head>
 <body class="bg-gray-100 text-gray-800 font-sans">
 
+    <!-- ANÚNCIO POP-UP -->
+<div id="popup-anuncio" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000]">
+    <div class="bg-white rounded-lg shadow-xl max-w-sm w-full p-6 text-center relative">
+      
+      <!-- Ícone superior -->
+      <div class="flex justify-center mb-4">
+        <svg class="w-12 h-12 text-green-600" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 11c0-1.104.896-2 2-2s2 .896 2 2-.896 2-2 2-2-.896-2-2zm0 0v1.5a4.5 4.5 0 11-4.5-4.5H9M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+  
+      <h2 class="text-xl font-bold text-gray-800 mb-2">Convide seus amigos e familiares</h2>
+      <p class="text-gray-700 mb-4">Ganhe 30% por indicação:</p>
+  
+      <ul class="text-left text-gray-700 mb-4 list-disc pl-6 text-sm">
+        <li>Nível 1: <strong>30%</strong></li>
+        <li>Nível 2: <strong>30%</strong></li>
+        <li>Nível 3: <strong>30%</strong></li>
+      </ul>
+  
+      <!-- Ações -->
+      <div class="flex justify-between mt-6 items-center">
+        <!-- Botão Fechar -->
+        <button id="fechar-anuncio" class="flex items-center gap-2 bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          Fechar
+        </button>
+  
+        <!-- Botão Telegram com imagem de ícone -->
+<a href="https://t.me/investSmartjdjddj" target="_blank" class="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+  <img src="https://www.aogopa.com/assets/share-B28EYqUS.svg" alt="Telegram Icon" class="w-5 h-5">
+  Ir ao grupo
+</a>
+
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const fecharBtn = document.getElementById('fechar-anuncio');
+      const popup = document.getElementById('popup-anuncio');
+  
+      // 👉 Sempre mostrar o popup ao carregar a página
+      popup.style.display = 'flex'; // Isso reativa mesmo se o navegador restaurar o DOM do cache
+  
+      // 👉 Fecha apenas para esta sessão atual (não salva em localStorage nem sessionStorage)
+      fecharBtn.addEventListener('click', () => {
+        popup.style.display = 'none';
+      });
+    });
+  </script>
+  
+  
+
 
 
 <!-- HEADER -->
@@ -138,10 +196,10 @@
 
     <div class="flex items-center space-x-4">
       <!-- Bandeira Nacional (sem invert) -->
-      <img src="https://fc244.com/static/country/pt-AO.png" alt="Bandeira Nacional" class="w-6 h-4 md:w-8 md:h-5 object-cover rounded-sm" />
+      <img src="https://www.aogopa.com/assets/lg-pt-BeaJp7eW.svg" alt="Bandeira Nacional" class="w-6 h-4 md:w-8 md:h-5 object-cover rounded-sm" />
 
       <!-- Ícone de Mensagem (com invert) -->
-      <img src="https://fc244.com/static/icons/ic_message.png" alt="Mensagens" class="w-5 h-5 md:w-6 md:h-6 invert" />
+      <img src="https://www.aogopa.com/assets/lg-pt-BeaJp7eW.svg" alt="Mensagens" class="w-5 h-5 md:w-6 md:h-6 invert" />
     </div>
   </div>
 </header>
@@ -150,13 +208,13 @@
 <section class="py-0">
   <div id="carrossel-container" class="max-w-6xl mx-auto px-4 text-center">
     <div id="carrossel" class="relative flex">
-      <img src="https://images.unsplash.com/photo-1588627541420-fce3f661b779?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fG1vdG98ZW58MHx8MHx8fDA%3D" alt="Moto 1">
-      <img src="https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bW90b3xlbnwwfHwwfHx8MA%3D%3D" alt="Moto 2">
+      <img src="https://www.motonline.com.br/noticia/wp-content/uploads/2025/04/Loja-Teresina-1.webp" alt="Moto 1">
+      <img src="https://www.motonline.com.br/noticia/wp-content/uploads/2025/04/BMW-S-1000-RR-Manaus-5.webp" alt="Moto 2">
       <img src="https://images.unsplash.com/photo-1596687760372-4c0d266059a7?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fG1vdG98ZW58MHx8MHx8fDA%3D" alt="Moto 3">
-      <img src="https://media.istockphoto.com/id/1512443291/pt/foto/delivery-man-arriving-at-destination-motoboy.webp?a=1&b=1&s=612x612&w=0&k=20&c=b3LH7zYnpYYa5EE1Ffk8jTmsIA22n--AzJATYaE251U=" alt="Moto 4">
+      <img src="https://www.motonline.com.br/noticia/wp-content/uploads/2025/04/Fittipaldi1.webp" alt="Moto 4">
       <img src="https://media.istockphoto.com/id/1873910742/pt/foto/motorcyclists-crossing-the-atacama-desert.webp?a=1&b=1&s=612x612&w=0&k=20&c=Akl5QtY5_-pweyLgrnJbAu2qyAOl5Lqh9nLuVCUfn2E=" alt="Moto 5">
       <img src="https://media.istockphoto.com/id/2086786836/pt/foto/chopper-motorcycles-parked.webp?a=1&b=1&s=612x612&w=0&k=20&c=3cbSnpolefHs7gPEKAK6nG_JDiyYQno9hP_SfLD_-yM=" alt="Moto 6">
-      <img src="https://fc244.com/static/country/pt-AO.png" alt="Moto 3">
+      <img src="https://www.motonline.com.br/noticia/wp-content/uploads/2025/02/Captura-de-tela-2025-02-21-112800.png" alt="Moto 3">
     </div>
   </div>
 </section>
@@ -169,13 +227,13 @@
   <div class="flex justify-center gap-6">
     <!-- Botão Recarregar -->
     <button onclick="window.location.href='recarregar.html';" class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md transition">
-      <img src="https://cdn-icons-png.flaticon.com/512/992/992651.png" alt="Ícone Recarregar" class="w-5 h-5" />
+      <img src="https://www.aogopa.com/assets/user6-Cfaq4KhX.svg" alt="Ícone Recarregar" class="w-5 h-5" />
       Recarregar
     </button>
 
     <!-- Botão Retirar -->
     <button onclick="window.location.href='retirar.html';" class="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition">
-      <img src="https://fc244.com/static/icons/next.svg" alt="Ícone Retirar" class="w-5 h-5" />
+      <img src="https://www.aogopa.com/assets/user7-D4q2IEUD.svg" alt="Ícone Retirar" class="w-5 h-5" />
       Retirar
     </button>
   </div>
@@ -183,8 +241,8 @@
 
 <!-- DICAS DE MOTO E INVESTIMENTO -->
 <section class="dicas-container relative">
-  <img class="img-left" src="https://media.istockphoto.com/id/1512443291/pt/foto/delivery-man-arriving-at-destination-motoboy.webp?a=1&b=1&s=612x612&w=0&k=20&c=b3LH7zYnpYYa5EE1Ffk8jTmsIA22n--AzJATYaE251U=" alt="Motoboy chegando">
-  <img class="img-right" src="https://media.istockphoto.com/id/1457596651/pt/foto/traveling-on-a-motorcycle-on-the-roads.webp?a=1&b=1&s=612x612&w=0&k=20&c=_r839san-OBmNhztTgPi5f9895qThZBAy5M8Lma8aeo=" alt="Viajar de moto">
+  <img class="img-left" src="https://www.motonline.com.br/noticia/wp-content/uploads/2025/04/Bajaj-Dominar-NS-160-2025-2026.jpg" alt="Motoboy chegando">
+  <img class="img-right" src="https://www.motonline.com.br/noticia/wp-content/uploads/2025/04/Captura-de-tela-2025-04-29-152645.png" alt="Viajar de moto">
   
   <div class="max-w-7xl mx-auto px-4">
     <div class="dica">
