@@ -263,7 +263,7 @@
         // 4. Registrar a compra
         const dataCompra = new Date().toISOString();
 
-        const compraResponse = await fetch('https://api-wped.onrender.com/produtos', {
+        const compraResponse = await fetch('https://api-wped.onrender.com/depositos', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
