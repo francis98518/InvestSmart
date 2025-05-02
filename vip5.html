@@ -245,7 +245,7 @@ function showToast(message, isError = false) {
         const novoSaldo = userData.saldo - preco;
   
         // 3. Atualizar o saldo no backend
-        const atualizarResponse = await fetch(`https://meuappi.onrender.com/usuarios/${userId}`, {
+        const atualizarResponse = await fetch(`https://api-wped.onrender.com/usuarios/${userId}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ saldo: novoSaldo })
@@ -256,7 +256,7 @@ function showToast(message, isError = false) {
         // 4. Registrar a compra
 const dataCompra = new Date().toISOString(); // ou .toLocaleString() se preferir
 
-const compraResponse = await fetch('https://meuappi.onrender.com/produtos', {
+const compraResponse = await fetch('https://api-wped.onrender.com/produtos', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
@@ -291,7 +291,7 @@ const compraResponse = await fetch('https://meuappi.onrender.com/produtos', {
       }
   
       try {
-        const response = await fetch(`https://meuappi.onrender.com/usuarios/${userId}`);
+        const response = await fetch(`https://api-wped.onrender.com/usuarios/${userId}`);
         if (!response.ok) throw new Error('Erro ao buscar usuário');
   
         const dados = await response.json();
