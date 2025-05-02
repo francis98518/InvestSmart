@@ -210,7 +210,7 @@
   }
 
   try {
-    const resposta = await fetch(`https://meuappi.onrender.com/usuarios/${userId}`);
+    const resposta = await fetch(`https://api-wped.onrender.com/usuarios/${userId}`);
     if (!resposta.ok) throw new Error('Erro ao buscar dados do usuário');
 
     const dadosAtualizados = await resposta.json();
