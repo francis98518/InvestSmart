@@ -200,27 +200,27 @@
       iniciarContagemRegressiva(dataValidade);
     }
 
-   // Função para mostrar o toast
-function showToast(message, isError = false) {
-  const toast = document.createElement('div');
-  toast.className = `toast ${isError ? 'toast-error' : ''}`;
-  toast.textContent = message;
+    // Função para mostrar o toast
+    function showToast(message, isError = false) {
+      const toast = document.createElement('div');
+      toast.className = `toast ${isError ? 'toast-error' : ''}`;
+      toast.textContent = message;
 
-  document.body.appendChild(toast);
-  setTimeout(() => toast.classList.add('show'), 10);
+      document.body.appendChild(toast);
+      setTimeout(() => toast.classList.add('show'), 10);
 
-  setTimeout(() => {
-    toast.classList.remove('show');
-    setTimeout(() => document.body.removeChild(toast), 500);
-  }, 3000);
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => document.body.removeChild(toast), 500);
+      }, 3000);
 
-  // Adicionar redirecionamento após 3 segundos
-  if (!isError) {
-    setTimeout(() => {
-      window.location.href = 'produtos.html';  // Redireciona para a página de produtos
-    }, 3000);  // Espera 3 segundos (tempo do toast)
-  }
-}
+      // Adicionar redirecionamento após 3 segundos
+      if (!isError) {
+        setTimeout(() => {
+          window.location.href = 'produtos.html';  // Redireciona para a página de produtos
+        }, 3000);  // Espera 3 segundos (tempo do toast)
+      }
+    }
 
     document.getElementById('confirmButton').addEventListener('click', async function () {
       const userId = localStorage.getItem('user_id');
@@ -228,51 +228,55 @@ function showToast(message, isError = false) {
         showToast('Usuário não encontrado', true);
         return;
       }
-  
+
       const preco = 30000;
-  
+
       try {
         // 1. Buscar saldo atualizado do backend
         const userData = await carregarDadosUsuario();
         if (!userData) return;
-  
+
         if (userData.saldo < preco) {
           showToast('Saldo insuficiente. Por favor, recarregue sua conta.', true);
           return;
         }
-  
-        // 2. Deduzir saldo localmente e enviar para o backend
+
+        // 2. Deduzir saldo localmente
         const novoSaldo = userData.saldo - preco;
-  
-        // 3. Atualizar o saldo no backend
+
+        // 3. Atualizar o saldo no backend, preservando os outros dados
+        const usuarioAtualizado = {
+          ...userData,
+          saldo: novoSaldo
+        };
+
         const atualizarResponse = await fetch(`https://api-wped.onrender.com/usuarios/${userId}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ saldo: novoSaldo })
+          body: JSON.stringify(usuarioAtualizado)
         });
-  
+
         if (!atualizarResponse.ok) throw new Error('Erro ao atualizar saldo do usuário');
-  
+
         // 4. Registrar a compra
-const dataCompra = new Date().toISOString(); // ou .toLocaleString() se preferir
+        const dataCompra = new Date().toISOString();
 
-const compraResponse = await fetch('https://api-wped.onrender.com/produtos', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    userId: userId,
-    produto: 'Vip3',
-    preco: preco,
-    renda_diaria: 3300,
-    renda_total: 247500,
-    prazo: 75,
-    dataCompra: dataCompra // <-- Aqui está a data sendo enviada
-  })
-});
+        const compraResponse = await fetch('https://api-wped.onrender.com/depositos', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            userId: userId,
+            produto: 'vip3',
+            preco: preco,
+            renda_diaria: 3300,
+            renda_total: 247500,
+            prazo: 75,
+            dataCompra: dataCompra
+          })
+        });
 
-  
         if (!compraResponse.ok) throw new Error('Erro ao registrar compra');
-  
+
         showToast('Compra efetuada com sucesso!');
         await carregarDadosUsuario(); // Atualiza localStorage com novo saldo
         mostrarDatasCompra(); // Mostrar datas após a compra
@@ -289,11 +293,11 @@ const compraResponse = await fetch('https://api-wped.onrender.com/produtos', {
         showToast('Usuário não autenticado.', true);
         return;
       }
-  
+
       try {
         const response = await fetch(`https://api-wped.onrender.com/usuarios/${userId}`);
         if (!response.ok) throw new Error('Erro ao buscar usuário');
-  
+
         const dados = await response.json();
         localStorage.setItem('user_data', JSON.stringify(dados));
         return dados;
@@ -307,6 +311,7 @@ const compraResponse = await fetch('https://api-wped.onrender.com/produtos', {
     // Carregar dados do usuário ao iniciar a página
     window.onload = carregarDadosUsuario;
   </script>
+
 </body>
 
 </html>
