@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 
 <head>
@@ -31,6 +32,7 @@
       background-color: #dc3545;
     }
 
+    /* Estilo para o cartão */
     .card {
       display: flex;
       border-radius: 10px;
@@ -90,6 +92,7 @@
       color: #e74c3c;
     }
   </style>
+
 </head>
 
 <body class="bg-gray-100 text-gray-800 font-sans">
@@ -104,32 +107,38 @@
   <!-- Conteúdo Principal -->
   <section class="py-10">
     <div class="max-w-7xl mx-auto px-4">
+      <!-- Cartão de confirmação -->
       <div class="card">
-        <img src="https://images.unsplash.com/photo-1596687760372-4c0d266059a7?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fG1vdG98ZW58MHx8MHx8fDA%3D" alt="Plano VIP1" class="rounded-md mb-4 w-full h-28 object-cover" />
+        <!-- Imagem do produto (ou investimento) -->
+        <img src="https://images.unsplash.com/photo-1596687760372-4c0d266059a7?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fG1vdG98ZW58MHx8MHx8fDA%3D" alt="Plano VIP1" class="rounded-md mb-4 w-full h-28 object-cover" alt="Imagem do Plano de Investimento" />
+
+        <!-- Conteúdo do cartão -->
         <div class="card-content">
           <h2>Vip1</h2>
           <p><strong>Preço:</strong> 5000 KZS</p>
           <p><strong>Renda diária:</strong> 550 KZS</p>
           <p><strong>Renda total:</strong> 41.250.00 KZS</p>
           <p><strong>Prazo:</strong> 75 dias</p>
+
           <p><strong>Limite 100:</strong> <span id="dataCompra"></span></p>
           <p><strong>100 exemplares:</strong> <span id="dataValidade"></span></p>
+
           <p id="countdown" class="countdown"></p>
+
           <button id="confirmButton" class="confirm-btn mt-4">Confirmar Compra</button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Toasts -->
+  <!-- Toast de sucesso/erro -->
   <div id="toast" class="toast">Compra efetuada com sucesso!</div>
   <div id="toastError" class="toast toast-error">Saldo insuficiente. Por favor, recarregue a sua conta.</div>
 
-  <!-- Menu inferior mobile -->
+  <!-- RODAPÉ FIXO ESTILO APP -->
   <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 shadow-inner z-50 md:hidden">
     <div class="flex justify-around items-center py-2 text-gray-600">
       <a href="home.html" class="flex flex-col items-center text-sm hover:text-blue-600">
-        <!-- Ícones -->
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9l9-6 9 6v10.5A1.5 1.5 0 0 1 19.5 21h-15A1.5 1.5 0 0 1 3 19.5V9z" />
         </svg>
@@ -157,6 +166,7 @@
   </nav>
 
   <script>
+    // Função para calcular a contagem regressiva
     function iniciarContagemRegressiva(dataValidade) {
       const countdownElement = document.getElementById('countdown');
       const validadeDate = new Date(dataValidade).getTime();
@@ -172,21 +182,27 @@
           const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
           const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
           const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
           countdownElement.innerHTML = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
         }
       }, 1000);
     }
 
+    // Função para mostrar a data da compra e a data de validade
     function mostrarDatasCompra() {
       const dataCompra = new Date().toLocaleString();
       const dataValidade = new Date();
-      dataValidade.setDate(dataValidade.getDate() + 75);
+      dataValidade.setDate(dataValidade.getDate() + 75); // 75 dias a partir de hoje
 
+      // Atualizando as datas no HTML
       document.getElementById('dataCompra').textContent = dataCompra;
       document.getElementById('dataValidade').textContent = dataValidade.toLocaleString();
+
+      // Iniciar a contagem regressiva
       iniciarContagemRegressiva(dataValidade);
     }
 
+    // Função para mostrar o toast
     function showToast(message, isError = false) {
       const toast = document.createElement('div');
       toast.className = `toast ${isError ? 'toast-error' : ''}`;
@@ -194,15 +210,17 @@
 
       document.body.appendChild(toast);
       setTimeout(() => toast.classList.add('show'), 10);
+
       setTimeout(() => {
         toast.classList.remove('show');
         setTimeout(() => document.body.removeChild(toast), 500);
       }, 3000);
 
+      // Adicionar redirecionamento após 3 segundos
       if (!isError) {
         setTimeout(() => {
-          window.location.href = 'produtos.html';
-        }, 3000);
+          window.location.href = 'produtos.html';  // Redireciona para a página de produtos
+        }, 3000);  // Espera 3 segundos (tempo do toast)
       }
     }
 
@@ -216,6 +234,7 @@
       const preco = 5000;
 
       try {
+        // 1. Buscar saldo atualizado do backend
         const userData = await carregarDadosUsuario();
         if (!userData) return;
 
@@ -224,19 +243,24 @@
           return;
         }
 
+        // 2. Deduzir saldo localmente
         const novoSaldo = userData.saldo - preco;
+
+        // 3. Atualizar o saldo no backend, preservando os outros dados
+        const usuarioAtualizado = {
+          ...userData,
+          saldo: novoSaldo
+        };
 
         const atualizarResponse = await fetch(`https://api-wped.onrender.com/usuarios/${userId}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            ...userData,
-            saldo: novoSaldo
-          })
+          body: JSON.stringify(usuarioAtualizado)
         });
 
         if (!atualizarResponse.ok) throw new Error('Erro ao atualizar saldo do usuário');
 
+        // 4. Registrar a compra
         const dataCompra = new Date().toISOString();
 
         const compraResponse = await fetch('https://api-wped.onrender.com/produtos', {
@@ -247,7 +271,7 @@
             produto: 'vip1',
             preco: preco,
             renda_diaria: 550,
-            renda_total: 34560,
+            renda_total: 41250,
             prazo: 75,
             dataCompra: dataCompra
           })
@@ -255,15 +279,16 @@
 
         if (!compraResponse.ok) throw new Error('Erro ao registrar compra');
 
-        await carregarDadosUsuario();
-        mostrarDatasCompra();
         showToast('Compra efetuada com sucesso!');
+        await carregarDadosUsuario(); // Atualiza localStorage com novo saldo
+        mostrarDatasCompra(); // Mostrar datas após a compra
       } catch (error) {
         console.error('Erro na compra:', error);
         showToast('Erro ao realizar compra. Tente novamente.', true);
       }
     });
 
+    // Função que carrega os dados do usuário logado
     async function carregarDadosUsuario() {
       const userId = localStorage.getItem('user_id');
       if (!userId) {
@@ -285,8 +310,10 @@
       }
     }
 
+    // Carregar dados do usuário ao iniciar a página
     window.onload = carregarDadosUsuario;
   </script>
+
 </body>
 
 </html>
