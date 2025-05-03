@@ -256,7 +256,7 @@
         return;
       }
 
-      fetch(`https://meuappi.onrender.com/usuarios/${userId}`)
+      fetch(`https://api-wped.onrender.com/usuarios/${userId}`)
         .then(res => res.json())
         .then(data => {
           if (data && data.saldo !== undefined) {
