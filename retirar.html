@@ -193,11 +193,11 @@
       <option>Banco BFA</option>
       <option>Banco BIC</option>
       <option>Banco BAI</option>
-       <option>Banco ATLANTICO</option>
+      <option>Banco ATLANTICO</option>
     </select>
 
     <label for="iban">Conta Bancária (IBAN):</label>
-    <input type="text" id="iban" placeholder="IBAN">
+    <input type="text" id="iban" placeholder="IBAN" maxlength="21" oninput="validarIBAN(this)">
 
     <label for="amount">Valor:</label>
     <input type="number" id="amount" placeholder="Valor para retirada" oninput="calculateDeduction()">
@@ -210,18 +210,17 @@
 
   <div class="transaction">
     <div>
-        <strong>Valor mínimo de saque:</strong> 550 Kz 
+      <strong>Valor mínimo de saque:</strong> 550 Kz 
+      <div>
         <div>
-            <div>
-        <strong>Valor máximo de saque:</strong> 2.000.000 Kz
+          <strong>Valor máximo de saque:</strong> 2.000.000 Kz
+        </div>
+        <div><strong>Horário de retiradas:</strong> 08h às 21h</div>
+        <div><strong>Dias disponíveis:</strong> De segunda a sábado</div>
+        <div><strong>Tempo de espera:</strong> 2 a 5 horas</div>
       </div>
-      
-    <div><strong>Horário de retiradas:</strong> 08h às 21h</div>
-    <div><strong>Dias disponíveis:</strong> De segunda a sábado</div>
-    <div><strong>Tempo de espera:</strong> 2 a 5 horas</div>
+    </div>
   </div>
-  
-  
 
   <div class="transaction">
     <div><strong>Obs</strong> </div>
@@ -234,12 +233,9 @@
         <li>Se o valor não for creditado em sua conta dentro do prazo, entre em contato com o suporte.</li>
         <li>>Não inicie reclamações antes que o prazo seja cumprido. Reclamações antes disso podem resultar em banimento da plataforma.</li>
         <li>Se o seu saque for bem-sucedido, publique a confirmação no grupo para receber a sua recompensa!</li>
-
       </ul>
     </div>
   </div>
-  
- 
 
   <div id="toast"></div>
 
@@ -280,6 +276,10 @@
       }
     }
 
+    function validarIBAN(input) {
+      input.value = input.value.replace(/\D/g, ''); // remove tudo que não for número
+    }
+
     async function retirar() {
       const iban = document.getElementById('iban').value.trim();
       const nome = document.getElementById('name').value.trim();
@@ -287,6 +287,11 @@
 
       if (!iban || !nome || isNaN(valor) || valor <= 0) {
         showToast('Por favor, preencha todos os campos corretamente.');
+        return;
+      }
+
+      if (!/^\d{21}$/.test(iban)) {
+        showToast('O IBAN deve conter exatamente 21 números, sem letras ou espaços.');
         return;
       }
 
@@ -311,7 +316,6 @@
         }
 
         const valorComDesconto = valor * 0.91;
-
         const novoSaldo = usuario.saldo - valor;
 
         const resUpdate = await fetch(`https://api-wped.onrender.com/usuarios/${userId}`, {
